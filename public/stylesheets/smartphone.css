@@ -3,7 +3,7 @@ body{
 	font-size: xx-large;
 }
 
-#page-wrap::after{
+#page-wrap:after{
 	content: "Smartphone Layout"
 }
 
