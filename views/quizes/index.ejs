@@ -1,4 +1,13 @@
 <table>
+	<% if(filtrado){ %>
+		<a href="quizes">Ver todas las preguntas</a>
+	<% }else{ %>
+		<form action="quizes">
+			<p>Buscador de preguntas</p>
+			<input type="text" name="search" placeholder="introduzca texto a buscar" />
+			<input type="submit" value="Buscar" />
+	</form>
+	<% } %>
 	<% for(var i=0;i<quizes.length;i++){ %>
 	<tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %> </a></td></tr>
 	<% } %>
