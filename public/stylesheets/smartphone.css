@@ -7,10 +7,14 @@ body{
 	content: "Smartphone Layout"
 }
 
-h2 span, section h3{
+h2 span, section h3, label.rem{
 	display: none;
 }
 
-footer, input{
+input, button{
+	font-size: x-large;
+}
+
+footer{
 	font-size: large;
 }
