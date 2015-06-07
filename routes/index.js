@@ -5,7 +5,7 @@ var quizController=require("../controllers/quiz_controllers.js");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Quiz' });
+  res.render('index', { title: 'Quiz', errors:[] });
 });
 
 
