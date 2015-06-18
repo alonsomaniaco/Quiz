@@ -1,7 +1,10 @@
 var models=require('../models/models.js');
 
 exports.load=function(req, res, next, quizId) {
-	models.Quiz.findById(quizId).then(function(quiz) {
+	models.Quiz.find({
+		where: { id: Number(quizId) },
+		include: [{ model: models.Comment }]
+	}).then(function(quiz) {
 		if (quiz) {
 			req.quiz=quiz;
 			next();
@@ -17,7 +20,9 @@ exports.index = function (req, res) {
 	var search = req.query.search;
 	if (search) {
 		search = search.replace(' ', '%');
-		models.Quiz.findAll({ where: ["pregunta like ?", '%' + search + '%'] }).then(function (quizes) {
+		models.Quiz.findAll({ 
+			where: ["pregunta like ?", '%' + search + '%']
+		}).then(function (quizes) {
 			res.render('quizes/index', { quizes: quizes, filtrado: true, errors:[] });
 		});
 	} else {
