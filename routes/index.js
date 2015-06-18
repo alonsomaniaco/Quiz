@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-var quizController = require("../controllers/quiz_controllers");
+var quizController = require("../controllers/quiz_controller");
 var commentController = require('../controllers/comment_controller');
+var sessionController = require('../controllers/session_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,11 +11,20 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.param('quizId',quizController.load);
+router.param('quizId', quizController.load);
 
-router.get('/quizes',quizController.index);
 
-router.get("/quizes/:quizId(\\d+)",quizController.show);
+router.get('/login', sessionController.new);
+
+router.post('/login', sessionController.create);
+
+//esta petición debería ser delete porque elimina el recurso de session
+router.get('/logout', sessionController.destroy);
+
+
+router.get('/quizes', quizController.index);
+
+router.get("/quizes/:quizId(\\d+)", quizController.show);
 
 router.get("/quizes/:quizId(\\d+)/answer", quizController.answer);
 
@@ -32,6 +42,6 @@ router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
 
-router.get("/author",quizController.author);
+router.get("/author", quizController.author);
 
 module.exports = router;
