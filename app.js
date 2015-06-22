@@ -29,6 +29,7 @@ app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use(function (req, res, next) {
   
   //guardar path en session.redir para después de login
@@ -38,6 +39,24 @@ app.use(function (req, res, next) {
   
   //Hacer visible req.session en las vistas
   res.locals.session = req.session;
+  next();
+});
+
+//middleware de Auto-Logout
+app.use(function (req, res, next) {
+  if (req.session) {
+    if (req.session.lastConnection) {
+      //Obtenemos la diferencia entre el tiempo actual y la última conexión en minutos.
+      var minFromLast = ((new Date()).getTime() - req.session.lastConnection)/60000;
+
+      console.log("minFromLast:" + minFromLast);
+      if (minFromLast >= 2) {//cerrar sesion
+        delete req.session.user;
+      }
+    }
+    req.session.lastConnection = (new Date()).getTime();
+  }
+  //console.dir(req.session);
   next();
 });
 
