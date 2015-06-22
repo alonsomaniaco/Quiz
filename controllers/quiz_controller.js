@@ -108,3 +108,32 @@ exports.destroy = function (req, res) {
 exports.author=function(req,res){
 	res.render("author",{errors:[]});
 };
+
+
+exports.statistics = function (req, res, next) {
+	models.Quiz.findAll({
+		include: [{ model: models.Comment }]
+	}).then(function (quizes) {
+		var estadisticas = {
+			numPreguntas: quizes.length,
+			numComentarios: 0,
+			commentsPorPregunta: 0,
+			numPreguntasNoComentadas: 0,
+			numPreguntasComentadas: 0
+		};
+		for (var i = 0; i < quizes.length; i++) {
+			var comments = quizes[i].Comments.length;
+			console.log("comments:"+comments);
+			estadisticas.numComentarios += comments;
+			if (comments > 0) {
+				estadisticas.numPreguntasComentadas++;
+			} else {
+				estadisticas.numPreguntasNoComentadas++;
+			}
+		}
+		estadisticas.commentsPorPregunta = estadisticas.numComentarios / estadisticas.numPreguntas;
+		res.render('quizes/statistics', {estadisticas:estadisticas, errors:[]});
+	}).catch(function (err) {
+		next(err);
+	});
+};

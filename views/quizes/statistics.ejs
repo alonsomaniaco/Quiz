@@ -1,0 +1,55 @@
+<style>
+	table{
+		margin: 0px auto;
+	}
+	
+	table, th, td {
+	    border: 1px solid black;
+	}
+	
+	th, td {
+	    padding: 5px;
+	}
+</style>
+<table>
+	<tr>
+		<td>
+			<strong>Número de preguntas</strong>
+		</td>
+		<td>
+			<%= estadisticas.numPreguntas %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<strong>Número de comentarios totales</strong>
+		</td>
+		<td>
+			<%= estadisticas.numComentarios %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<strong>Número medio de comentarios por pregunta</strong>
+		</td>
+		<td>
+			<%= estadisticas.commentsPorPregunta %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<strong>Número de preguntas sin comentarios</strong>
+		</td>
+		<td>
+			<%= estadisticas.numPreguntasNoComentadas %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<strong>Número de preguntas sin comentarios</strong>
+		</td>
+		<td>
+			<%= estadisticas.numPreguntasComentadas %>
+		</td>
+	</tr>
+</table>
